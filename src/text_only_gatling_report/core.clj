@@ -28,14 +28,14 @@
   [k v]
   (cond
     (str/starts-with? (name k) "req_")
-    [(name (-> v :name)) v]
+    [(name (:name v)) v]
 
     (= k :stats)
     ["sumary" v]
-    
+
     (= k :contents)
     ["details" v]
-    
+
     (= k :percentiles1)
     ["percentiles1 (usually p50)" v]
 
@@ -58,6 +58,7 @@
     (println-indented level (apply format "%s: %s" (transform-entry k v)))))
 
 (mapv #(print-text-report! % 0) (remove-unwanted-entries stats))
+
 
 (defn -main
   [& args]
